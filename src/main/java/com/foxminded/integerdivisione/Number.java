@@ -1,4 +1,4 @@
-package com.foxminded.integerDivisione;
+package com.foxminded.integerdivisione;
 
 public class Number {
 
