@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.foxminded</groupId>
-	<artifactId>IntegerDivision</artifactId>
+	<artifactId>integer-division</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>IntegerDivision</name>
 	<description>Demo project for Spring Boot</description>
@@ -17,10 +17,6 @@
 		<java.version>11</java.version>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

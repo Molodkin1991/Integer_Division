@@ -1,11 +1,11 @@
-package com.foxminded;
+package com.foxminded.integerDivisione;
 
-public class Num {
+public class Number {
 
     private final int digit;
     private final int pointPosition;
 
-    public Num(int value, int pointPosition) {
+    public Number(int value, int pointPosition) {
         this.digit = value;
         this.pointPosition = pointPosition;
     }
