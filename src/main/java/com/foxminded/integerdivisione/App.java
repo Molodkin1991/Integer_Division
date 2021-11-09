@@ -10,4 +10,3 @@ public class App {
         integerDivisioner.divide(dividend, divider);
     }
 }
-

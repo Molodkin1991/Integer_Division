@@ -2,9 +2,12 @@ package com.foxminded.integerdivisione;
 
 
 public class IntegerDivisioner {
-    public static int divide(int dividend, int divider) {
+    public static DivisionResult divide(int dividend, int divider) {
 
-        DivisionResult divisionResult = new DivisionResult();
-        return divisionResult.divisionResultFormatter(dividend, divider);
+        DivisionFormatter resultFormatter = new DivisionFormatter();
+        if (0 >= divider) {
+            throw new ArithmeticException();
+        }
+        return resultFormatter.formatter(dividend, divider);
     }
 }
