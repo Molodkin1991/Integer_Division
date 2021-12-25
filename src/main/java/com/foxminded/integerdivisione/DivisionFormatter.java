@@ -1,56 +1,52 @@
 package com.foxminded.integerdivisione;
 
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.List;
+
 public class DivisionFormatter {
-    public DivisionResult formatter(int dividend, int divider) {
-        DivisionResult divisionResult = new DivisionResult();
-        int maxLen = 1 + Math.max(Integer.valueOf(dividend).toString().length(), Integer.valueOf(divider).toString().length());
-        String intFormat = "%" + maxLen + "d";
-        System.out.println(" " + String.format(intFormat, dividend) + "|" + String.format(intFormat, divider));
-        System.out.println(" " + generateTab(maxLen, ' ') + String.format("|", " "));
-        int result = 0;
-        while (true) {
+    public static String format(DivisionResult divisionResult) {
+        List<String> divisionPartsList = divisionResult.getDivisionPartsList();
+        String firstSubtractedNumber = String.valueOf(divisionPartsList.get(0));
+        int numberOfSpacesInSecondLine = String.valueOf(divisionResult.getDividend()).length() - firstSubtractedNumber.length();
 
-            Number num = divideNext(dividend, divider);
-            if (num.getDigit() == 0) {
-                break;
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("_").append(divisionResult.getDividend()).append("|").append(divisionResult.getDivisor()).append("\n")
+                .append(" ").append(firstSubtractedNumber)
+                .append(StringUtils.leftPad("", numberOfSpacesInSecondLine))
+                .append("|")
+                .append(StringUtils.rightPad("", String.valueOf(divisionResult.getResult()).length(), '-'))
+                .append("\n")
+                .append(" --")
+                .append(StringUtils.leftPad("", String.valueOf(divisionResult.getDividend()).length() - 2))
+                .append("|").append(divisionResult.getResult()).append("\n");
+
+
+        for (int i = 1; i < divisionPartsList.size(); i++) {
+            if (i % 2 == 0 || i + 1 == divisionPartsList.size()) {
+                builder.append(StringUtils.leftPad("", getNumberOfSpacesBeforeSubtractedNumber(i)));
+            } else {
+                builder.append(StringUtils.leftPad("_", getNumberOfSpacesBeforeSubtractedNumber(i)));
             }
-            String numFormat = "%" + (maxLen - num.getPointPosition()) + "d";
-            System.out.println(" " + String.format(numFormat, -divider * num.getDigit()) + generateTab(num.getPointPosition(), ' '));
 
-            result += num.getValue();
-            dividend -= num.getValue() * divider;
+            builder.append(divisionPartsList.get(i))
+                    .append("\n");
 
-            System.out.println(generateTab(maxLen + maxLen + 2, '-'));
-            System.out.println(" " + String.format(intFormat, dividend));
+            if (i % 2 == 0) {
+                builder.append(StringUtils.leftPad(" ", getNumberOfSpacesBeforeSubtractedNumber(i)))
+                        .append("--")
+                        .append("\n");
+            }
         }
-        System.out.println(generateTab(maxLen + maxLen + 2, '='));
-        System.out.println(" " + String.format(intFormat, dividend) + "|" + String.format(intFormat, result));
-        divisionResult.setResult(result);
-        return divisionResult;
+
+        return builder.toString();
     }
 
-    public static String generateTab(int length, char ch) {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < length; i++) {
-            result.append(ch);
-        }
-        return result.toString();
+    private static int getNumberOfSpacesBeforeSubtractedNumber(int index) {
+        return (index + 1) / 2;
     }
 
-    public static Number divideNext(int dividend, int divider) {
-        int pointPosition = 0;
-        if (dividend < divider) {
-            return new Number(0, 0);
-        }
-        while (dividend > divider * 10) {
-            pointPosition++;
-            divider *= 10;
-        }
-        int count = 1;
-        while (dividend > divider * (count + 1)) {
-            count++;
-        }
-        return new Number(count, pointPosition);
-    }
 }
+
 

@@ -3,10 +3,9 @@ package com.foxminded.integerdivisione;
 public class App {
     public static void main(String[] args) {
 
-        int dividend = 78945;
-        int divider = 4;
-        IntegerDivisioner integerDivisioner = new IntegerDivisioner();
+        DivisionResult divisionResult = IntegerDivision.divide(78945, 4);
 
-        integerDivisioner.divide(dividend, divider);
+        System.out.println(DivisionFormatter.format(divisionResult));
+
     }
 }
