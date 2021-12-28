@@ -1,6 +1,7 @@
 package com.foxminded.integerdivisione;
 
 import java.util.List;
+import java.util.Objects;
 
 public class DivisionResult {
     private int dividend;
@@ -14,6 +15,19 @@ public class DivisionResult {
         this.divisor = divisor;
         this.result = result;
         this.divisionPartsList = divisionPartsList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DivisionResult)) return false;
+        DivisionResult that = (DivisionResult) o;
+        return dividend == that.dividend && divisor == that.divisor && result == that.result && Objects.equals(divisionPartsList, that.divisionPartsList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(dividend, divisor, result, divisionPartsList);
     }
 
     public int getDividend() {
